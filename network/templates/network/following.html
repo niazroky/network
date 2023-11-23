@@ -1,0 +1,30 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+
+    <h1 class="mx-5">Following Posts</h1>
+
+    <!--Show all posts-->
+    <div class="all-posts">
+        {% for post in posts_of_the_page %}
+            <div class="row post">
+                <h6 class="username"><a href="{% url 'user_profile' user_id=post.user.id %}">{{ post.user }}</a></h6>
+                <h6 class="content">{{ post.post_content }}</h6>
+                <p class="date">{{ post.post_date }}</p>
+            </div>
+        {% endfor %}
+    </div>
+
+
+    <!--nav bar to go back and forth for seeing post-->
+    <nav aria-label="Page navigation example">
+        <ul class="pagination d-flex justify-content-center">
+            {% if posts_of_the_page.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page={{ posts_of_the_page.previous_page_number }}">Previous</a></li>
+            {% endif %}
+            {% if posts_of_the_page.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ posts_of_the_page.next_page_number }}">Next</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endblock %}
